@@ -17,7 +17,8 @@
 
       </p>
       <button class="btn btn-primary">Learn More</button>
-        <button class="btn btn-primary">Start!</button>
+       <a href="{{ url_for('start', exercise='shoulder_press') }}" class="btn btn-primary">Start Shoulder Press</a>
+
         <!-- Alternative-->
         <div class="dropdown dropdown-hover">
           <div tabindex="0" role="button" class="btn btn-secondary">Alternatives</div>
@@ -31,7 +32,7 @@
   </div>
 </div>
 
-    <div class="hero bg-base-200 min-h-screen" id = '/Dumbbell_Curls'>
+    <div class="hero bg-base-200 min-h-screen" id = '/bicep_curls'>
   <div class="hero-content flex-col lg:flex-row-reverse">
         <img src="https://images.pexels.com/photos/7289370/pexels-photo-7289370.jpeg" class="max-w-sm rounded-lg shadow-2xl" />
         <div class="mt-4">
@@ -46,7 +47,7 @@
           </p>
           <div class="flex">
             <button class="btn btn-primary mr-2">Learn More</button>
-            <button class="btn btn-primary mr-2">Start!</button>
+            <a href="{{ url_for('start', exercise='dumbbell_curls') }}" class="btn btn-primary">Start dumbbell_curls</a>
               <!-- Alternative-->
         <div class="dropdown dropdown-hover">
           <div tabindex="0" role="button" class="btn btn-secondary">Alternatives</div>

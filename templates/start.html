@@ -83,16 +83,34 @@
     </div>
 
     <!-- Video Feed Section -->
-    <div class="video-container">
-        <h1 class="text-3xl text-center my-5"></h1>
-        <img class="video-feed" src="{{ url_for('video_feed') }}" alt="Live Feed">
+<div class="video-container">
+    <h1 class="text-3xl text-center my-5"></h1>
+
+    <!-- Display the video feed -->
+    <iframe src="{{ url_for('video_feed', exercise=exercise) }}" width="640" height="480"></iframe>
+</div>
+<div>
+    <h1 id="feedback" class="text-5xl font-bold"></h1>
+</div>
+
+<div>
+        <h1 id="feedback" class="text-5xl font-bold"></h1>
     </div>
 
-    <!-- Background Music -->
-    <audio class="audio-player" autoplay loop>
-        <source src="{{ url_for('static', filename='background-music.mp3') }}" type="audio/mp3">
-        Your browser does not support the audio element.
-    </audio>
+    <script>
+        function updateFeedback() {
+            fetch('/live_feedback')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('feedback').innerText = data.live_feedback;
+                });
+        }
+
+        // Update feedback every second
+        setInterval(updateFeedback, 1000);
+    </script>
+</body>
+</html>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
