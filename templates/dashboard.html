@@ -1,0 +1,14 @@
+{% extends 'otherbase.html' %}
+
+{% block content %}
+    <form action="{{ url_for('dashboard') }}" method="post">
+        <select name="exercise-selector">
+            <option value="1" {% if exercise_id == 1 %}selected{% endif %}>Shoulder Press</option>
+            <option value="2" {% if exercise_id == 2 %}selected{% endif %}>Bicep Curl</option>
+            <!-- Add more options as needed -->
+        </select>
+        <button type="submit">Update</button>
+    </form>
+    <p>Out of {{ total_count }} performed, you did {{ good_form }} with full range of motion!</p>
+    <div>{{ graph_html|safe }}</div>
+{% endblock %}
