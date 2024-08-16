@@ -106,11 +106,9 @@ def gen_frames():
                         cv2.putText(image, live_feedback, (30, 100),
                                     cv2.FONT_HERSHEY_DUPLEX, 0.5, (0, 0, 255), 1, cv2.LINE_AA)
 
-                    # Display repetition count
                     cv2.putText(image, f'Rep {repetition_count}', (30, 150),
                                 cv2.FONT_HERSHEY_DUPLEX, 0.75, (0, 0, 255), 2, cv2.LINE_AA)
 
-                    # Check if 8 repetitions are completed
                     if repetition_count >= 8:
                         end_time = time.time() + 5  # Set the end time for the 5-second delay
 
@@ -126,7 +124,6 @@ def gen_frames():
                             image.flags.writeable = True
                             image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
 
-                            # Display the loading message
                             cv2.putText(image, 'Great Job! '
                                                'Taking you to feedback page.', (30, 200),
                                         cv2.FONT_HERSHEY_DUPLEX, 0.75, (0, 0, 255), 1, cv2.LINE_AA)
@@ -145,7 +142,7 @@ def gen_frames():
                         except Exception as e:
                             print(f"Error while appending to database: {e}")
 
-                        # No need to break the loop here; the camera should remain open for further usage
+
 
             except Exception as e:
                 print(f"Error during pose processing: {e}")

@@ -1,7 +1,3 @@
-import cv2
-import numpy as np
-import mediapipe as mp
-
 def calculate_angle(a, b, c):
     a = np.array(a)
     b = np.array(b)
@@ -77,8 +73,6 @@ def gen_frames():
                 cv2.putText(image, f'Angle: {int(angle)}', tuple(np.multiply(elbow, [640, 480]).astype(int)),
                             cv2.FONT_HERSHEY_SIMPLEX, 1, line_color, 2, cv2.LINE_AA)
 
-                # Optional: Draw landmarks and connections for debug purposes
-                # mp_drawing.draw_landmarks(image, results.pose_landmarks, mp_pose.POSE_CONNECTIONS)
 
             except Exception as e:
                 print(f"Error during pose processing: {e}")

@@ -1,14 +1,19 @@
 from flask import Flask, flash, render_template, redirect, request, url_for, jsonify, session, Response
 from forms import LoginForm, SearchForm, RegistrationForm
-from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from config import Config
 from models import User, db, bcrypt, Exercises, UserExercise, WeeklyWorkout
-import cv2
-import numpy as np
-import mediapipe as mp
 from shoulder_press import gen_frames as gen_frames_shoulder_press
 from bicep_curls import gen_frames as gen_frames_bicep_curls
+from io import StringIO
+import plotly.graph_objects as go
+import pandas as pd
+from datetime import datetime
+from dash import Dash, html, dcc, Input, Output
+import plotly.graph_objects as go
+from dash.exceptions import PreventUpdate
+import dash_bootstrap_components as dbc
+
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -16,7 +21,103 @@ db.init_app(app)
 bcrypt.init_app(app)
 migrate = Migrate(app, db)
 
+quartz = dbc.themes.SKETCHY
 
+dash_app = Dash(__name__, server=app, external_stylesheets=[quartz], url_base_pathname='/dashboard/')
+
+dash_app.layout = dbc.Container([
+    dbc.Row(
+        dbc.Col(html.H2("Exercise Form Dashboard", className="text-center mb-4"), width=12)
+    ),
+    dbc.Row([
+        dbc.Col(
+            dcc.Dropdown(
+                id='exercise-dropdown',
+                options=[
+                    {'label': 'Shoulder Press', 'value': 1},
+                    {'label': 'Bicep Curl', 'value': 2}
+
+                ],
+                value=1,
+                className='mx-auto',
+                style={'width': '50%'}
+            ),
+            width=6
+        )
+    ], justify="center"),
+    html.Div(id='exercise-output', className="mt-4")
+])
+
+@dash_app.callback(
+    Output('exercise-output', 'children'),
+    [Input('exercise-dropdown', 'value')]
+)
+def update_output(exercise_id):
+    if not exercise_id:
+        raise PreventUpdate
+
+    data = UserExercise.query.filter_by(exercise_id=exercise_id).all()
+    df = pd.DataFrame([{
+        'count': record.count,
+        'rep_number': record.rep_number,
+        'max_angle': record.max_angle,
+        'min_angle': record.min_angle,
+
+    } for record in data])
+
+    total_count = df['count'].sum()
+    good_form = df['rep_number'].sum()
+    bad_form = total_count - good_form
+    tut = round(df['min_angle'].sum())
+    romotion = round(df['max_angle'].sum())
+
+
+    graph = go.Figure(
+        data=[go.Pie(labels=['Good Form', 'Bad Form'], values=[good_form, bad_form], textinfo='label', showlegend=False)])
+    graph.update_layout(
+        annotations=[
+            dict(text='*based on last exercise attempt', x=1.05, y=-0.15, xref='paper', yref='paper',
+                 font=dict(size=10, color='black'))]
+    )
+
+    if total_count == good_form:
+        return [
+            dbc.Card(
+                dbc.CardBody([
+                    html.H4("Summary", className="card-title"),
+                    html.Ul([
+                        html.Li(f"All reps were performed with a great form!"),
+                    ]),
+                    dcc.Graph(figure=graph),
+                    html.H4("Keep it up!", className="card-title"),
+                ])
+            )
+        ]
+    else:
+        return [
+            dbc.Card(
+                dbc.CardBody([
+                    html.H4("Summary", className="card-title"),
+                    html.Ul([
+                        html.Li(f"Out of {total_count} performed, {good_form} were of good form!"),
+                        html.Li(f"Performed {bad_form} rep(s) with poor form"),
+                        html.Li(f"{tut} of those were with poor TUT", style={'color': 'red'}),
+                        html.Li(f"{romotion} were with incomplete range of motion", style={'color': 'red'}),
+                    ]),
+                    dcc.Graph(figure=graph),
+                    html.H4("Recommendation", className="card-title"),
+                    html.Ul([
+                        html.Li(f"Increase focus on maintaining range of motion"),
+                        html.Li(f"Perform exercise slower")
+                    ])
+                ])
+            )
+        ]
+
+
+@app.route("/dash/")
+def render_dashboard():
+    return dash_app.index()
 
 def gen_frames(exercise):
     if exercise == 'shoulder_press':
