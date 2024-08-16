@@ -9,7 +9,7 @@
 | Front-End: Build the basic structure using HTML, CSS, and JavaScript.|X|
 | Back-End: Implement core functionalities with Flask.|X|
 | Database: Set up PostgreSQL for handling user data.|X|
-| Testing: Initial manual and automated tests on front-end and back-end to ensure basic functionality.|x|
+| Testing: Initial manual and automated tests on front-end and back-end to ensure basic functionality.|X|
 
 Milestones: 
 > Completion of front-end and back-end development.
@@ -18,9 +18,10 @@ Milestones:
 ## Sprint 2 - Model Training, Feedback Mechanism and Additional features
 | Task | Status |
 | ------------- | ------------- |
-| Model Training: Train Media Pipe models for joint detection and angle calculation.|X|
+|Model Training: Train Media Pipe Model for joint detection and angle calculation.|X|
 |Integration: Integrate Media Pipe and OpenCV for real-time video processing.|X|
 |Feedback Mechanism: Implement logic for analyzing joint angles and providing real-time feedback.|X|
+|Feedback Mechanism: Implement logic for post-workout feedback and tracking.|(WIP)|
 |Additional Features: Alternate exercise options and personalized recommendations.||
 |Testing: Manual and automated testing of the training and feedback mechanisms.|X|
 
