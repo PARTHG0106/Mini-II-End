@@ -46,7 +46,7 @@
         <!-- Left side: Search field -->
         <div class="flex-1">
             <div class="form-control">
-                <form method="POST" action="{{ url_for('mainboard') }}">
+                <form method="POST" action="">
                     {{ search_form.hidden_tag() }}
                     <div class="form-group flex relative">
                         {{ search_form.search_exercise(class="input input-bordered w-full max-w-xs", id="search_exercise") }}
@@ -56,9 +56,9 @@
                 </form>
             </div>
         </div>
-        <!-- Center: Start button -->
+
         <div class="flex-1 flex justify-left">
-            <a href="mainboard" class="btn btn-ghost text-xl">Home</a>
+            <a href="/dash/" class="btn btn-primary text-xl">FeedBack</a>
         </div>
         <!-- Right side: Avatar dropdown -->
         <div class="flex-none">
@@ -82,12 +82,12 @@
         </div>
     </div>
 
-    <!-- Video Feed Section -->
+    <!--  -->
 <div class="video-container">
     <h1 class="text-3xl text-center my-5"></h1>
 
-    <!-- Display the video feed -->
-    <iframe src="{{ url_for('video_feed', exercise=exercise) }}" width="640" height="480"></iframe>
+    <!-- Displaying video -->
+    <iframe src="{{ url_for('video_feed', exercise=exercise, user_id=user_id, rep_goal=rep_goal) }}" width="640" height="480"></iframe>
 </div>
 <div>
     <h1 id="feedback" class="text-5xl font-bold"></h1>
@@ -109,44 +109,14 @@
         // Update feedback every second
         setInterval(updateFeedback, 1000);
     </script>
-</body>
-</html>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const searchInput = document.getElementById('search_exercise');
-            const searchResults = document.getElementById('search-results');
-
-            searchInput.addEventListener('input', function () {
-                const query = searchInput.value;
-                if (query.length > 0) {
-                    fetch(`/search_exercises?query=${query}`)
-                        .then(response => response.json())
-                        .then(data => {
-                            searchResults.innerHTML = '';
-                            if (data.length > 0) {
-                                data.forEach(item => {
-                                    const resultItem = document.createElement('a');
-                                    resultItem.href = item.link;
-                                    resultItem.textContent = item.name;
-                                    searchResults.appendChild(resultItem);
-                                });
-                                searchResults.style.display = 'block';
-                            } else {
-                                searchResults.style.display = 'none';
-                            }
-                        });
-                } else {
-                    searchResults.style.display = 'none';
-                }
-            });
-
-            document.addEventListener('click', function (event) {
-                if (!searchResults.contains(event.target) && event.target !== searchInput) {
-                    searchResults.style.display = 'none';
-                }
-            });
-        });
+    <script type="text/javascript">
+        window.onload = function() {
+            var audio = document.getElementById('countdownAudio');
+            audio.play();
+        };
     </script>
+
+
 </body>
 </html>

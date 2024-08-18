@@ -38,7 +38,7 @@
     </div>
 
     <div class="flex-1 flex justify-left">
-        <a href="#" class="btn btn-ghost text-xl">Start</a>
+    <a href="/start/shoulder_press" class="btn btn-ghost text-xl">Start</a>
     </div>
 
     <div class="flex-none">
@@ -68,44 +68,6 @@
     </div>
 </div>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const searchInput = document.getElementById('search_exercise');
-        const searchResults = document.getElementById('search-results');
-
-        searchInput.addEventListener('input', function () {
-            const query = searchInput.value;
-            if (query.length > 0) {
-                fetch(`/search_exercises?query=${query}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        searchResults.innerHTML = '';
-                        if (data.length > 0) {
-                            data.forEach(item => {
-                                const resultItem = document.createElement('a');
-                                resultItem.href = item.link;
-                                resultItem.textContent = item.name;
-                                searchResults.appendChild(resultItem);
-                            });
-                            searchResults.style.display = 'block';
-                        } else {
-                            searchResults.style.display = 'none';
-                        }
-                    });
-            } else {
-                searchResults.style.display = 'none';
-            }
-        });
-
-        document.addEventListener('click', function (event) {
-            if (!searchResults.contains(event.target) && event.target !== searchInput) {
-                searchResults.style.display = 'none';
-            }
-        });
-    });
-</script>
-
-<!-- Mini Dashboard -->
 
 <ul>
     <div class="container mx-auto mt-2 px-4">
@@ -127,7 +89,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                         </svg>
                     </div>
-                    <div class="stat-title text-lg">Workout Efficiency</div>
+                    <div class="stat-title text-lg">Overall Workout Efficiency</div>
                     <div class="stat-value text-secondary text-3xl">{{ efficiency }}%</div>
 
 
@@ -142,7 +104,7 @@
                         </div>
                     </div>
                     <div class="stat-title text-lg">Workouts This Week</div>
-                    <div class="stat-value text-secondary text-3xl">{{ workouts_completed }}/{{ weekly_goal }}</div>
+                    <div class="stat-value text-secondary text-3xl">{{ exercises_this_week }}</div>
                     <div class="stat-desc text-sm">{{ workouts_remaining }} more workouts to go!</div>
                     <progress class="progress progress-accent w-full" value="{{ progress }}" max="100"></progress>
                 </div>
@@ -152,18 +114,27 @@
 <ul>
     <div class="container mx-auto mt-5 px-4">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="stat bg-secondary p-8 shadow-lg rounded-lg">
-                <div class="stat-figure text-primary text-lg">
-                    <div class="radial-progress" style="--value:70; --size:6rem; --thickness: 2px;" role="progressbar">
-                        0%
-                    </div>
-                </div>
-            </div>
+            <a href="/dash/" style="text-decoration: none; color: inherit;">
+    <div class="stat bg-secondary p-8 shadow-lg rounded-lg" style="display: flex; align-items: center; justify-content: space-between;">
+        <div class="stat-desc text-lg" style="flex: 1; font-size:2em;">Track your progress</div>
+           <div class="stat-desc text-lg" style="flex: 1;"> <ul><li>
+                🏆    {{ total_exercises }} exercises completed!</li>
+            <li>🚀 {{ total_reps}} reps performed!
+            </li></ul></div>
+        <div class="radial-progress" style="--value:0; --size:6rem; --thickness: 2px;" role="progressbar">
+            <div style="text-align: center; font-size: 5em;">    📈 </div>
+           <div></div>
+</li>        </div>
+    </div>
+</a>
+
+
+
 
             <div class="stat bg-primary p-8 shadow-lg rounded-lg">
                 <div class="stat-figure text-secondary"></div>
-                <div class="stat-value text-secondary text-3xl">0 Day!</div>
-                <div class="stat-desc text-lg">You are on a 0 day streak!</div>
+                <div class="stat-value text-secondary text-3xl">{{ streak }} Day!</div>
+                <div class="stat-desc text-lg">You are on a {{ streak }} day streak!</div>
                 <div class="stat-desc text-lg">0 workouts in past 30 days</div>
             </div>
         </div>
@@ -209,6 +180,7 @@
     </div>
 </dialog>
 
+       #first time loading, from stackoverflow
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         var modal = document.getElementById('first_time_popup');
@@ -219,47 +191,6 @@
 
     {% endif %}
 
-
-
-
-
-
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const searchInput = document.getElementById('search_exercise');
-    const suggestionsBox = document.getElementById('suggestions');
-
-    searchInput.addEventListener('input', function() {
-      const query = searchInput.value;
-      if (query.length > 0) {
-        fetch(`/search_suggestions?query=${query}`)
-          .then(response => response.json())
-          .then(data => {
-            suggestionsBox.innerHTML = '';
-            data.forEach(item => {
-              const suggestionItem = document.createElement('li');
-              suggestionItem.textContent = item;
-              suggestionItem.classList.add('p-2', 'cursor-pointer', 'hover:bg-gray-200');
-              suggestionItem.addEventListener('click', function() {
-                searchInput.value = item;
-                suggestionsBox.classList.add('hidden');
-              });
-              suggestionsBox.appendChild(suggestionItem);
-            });
-            suggestionsBox.classList.remove('hidden');
-          });
-      } else {
-        suggestionsBox.classList.add('hidden');
-      }
-    });
-
-    document.addEventListener('click', function(event) {
-      if (!suggestionsBox.contains(event.target) && event.target !== searchInput) {
-        suggestionsBox.classList.add('hidden');
-      }
-    });
-  });
-</script>
 
 
 

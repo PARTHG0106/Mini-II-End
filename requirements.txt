@@ -1,0 +1,13 @@
+opencv-python
+dash
+dash_bootstrap_components
+flask
+flask_bcrypt
+flask_migrate
+flask_sqlalchemy
+flask_wtf
+mediapipe
+numpy
+pandas
+plotly
+wtforms
