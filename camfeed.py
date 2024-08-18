@@ -1,14 +1,11 @@
 import cv2
 import mediapipe as mp
 import numpy as np
-import math
 
-
-# Function to calculate the angle between three points
 def calculate_angle(a, b, c):
-    a = np.array(a)  # First point
-    b = np.array(b)  # Middle point (vertex)
-    c = np.array(c)  # Third point
+    a = np.array(a)  
+    b = np.array(b)  
+    c = np.array(c)  
 
 
     radians = np.arctan2(c[1] - b[1], c[0] - b[0]) - np.arctan2(a[1] - b[1], a[0] - b[0])
@@ -25,27 +22,27 @@ mp_pose = mp.solutions.pose
 
 cap = cv2.VideoCapture(0)
 
-# Start MediaPipe Pose detection
+
 with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as pose:
     while cap.isOpened():
         ret, frame = cap.read()
 
-        # Recolor the frame to RGB
+     
         image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         image.flags.writeable = False
 
-        # Make detection
+
         results = pose.process(image)
 
-        # Recolor back to BGR
+
         image.flags.writeable = True
         image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
 
-        # Extract landmarks
+
         try:
             landmarks = results.pose_landmarks.landmark
 
-            # Get coordinates for the right shoulder, elbow, and wrist
+     
             shoulder = [landmarks[mp_pose.PoseLandmark.RIGHT_SHOULDER.value].x,
                         landmarks[mp_pose.PoseLandmark.RIGHT_SHOULDER.value].y]
             elbow = [landmarks[mp_pose.PoseLandmark.RIGHT_ELBOW.value].x,
