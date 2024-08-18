@@ -21,7 +21,7 @@ Milestones:
 |Model Training: Train Media Pipe Model for joint detection and angle calculation.|X|
 |Integration: Integrate Media Pipe and OpenCV for real-time video processing.|X|
 |Feedback Mechanism: Implement logic for analyzing joint angles and providing real-time feedback.|X|
-|Feedback Mechanism: Implement logic for post-workout feedback and tracking.|(WIP)|
+|Feedback Mechanism: Implement logic for post-workout feedback and tracking.|(80%)|
 |Additional Features: Alternate exercise options and personalized recommendations.||
 |Testing: Manual and automated testing of the training and feedback mechanisms.|X|
 
