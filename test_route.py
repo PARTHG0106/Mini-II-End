@@ -27,7 +27,7 @@ def init_database():
 
 
 def test_successful_login(client, init_database):
-    #Test successful login with correct data.
+    #with correct data.
     response = client.post('/login', data={
         'username': 'newuser',
         'password': 'newpassword',
@@ -40,7 +40,7 @@ def test_successful_login(client, init_database):
 
 
 def test_failed_login(client, init_database):
-    #Test failed login with incorrect data.
+    #with incorrect data.
     response = client.post('/login', data={
         'username': 'newuser',
         'password': 'wrongpassword',
@@ -54,7 +54,7 @@ def test_failed_login(client, init_database):
 
 
 def test_successful_registration(client, init_database):
-    #Test successful registration of a new user.
+    #registration of a new user.
     response = client.post('/login', data={
         'username': 'anotheruser',
         'email': 'anotheruser@example.com',
@@ -71,7 +71,7 @@ def test_successful_registration(client, init_database):
 
 
 def test_registration_with_existing_username_or_email(client, init_database):
-   # Testing registration with existing data.
+   #registration with existing data.
     if not User.query.filter_by(username="uniqueuser").first():
         client.post('/login', data={
             'username': 'uniqueuser',
