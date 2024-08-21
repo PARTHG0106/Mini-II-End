@@ -36,14 +36,12 @@
             max-width: 800px;
             height: auto;
         }
-        .audio-player {
-            display: none; /* Hide the audio player */
-        }
+
     </style>
 </head>
 <body>
     <div class="navbar bg-base-100">
-        <!-- Left side: Search field -->
+
         <div class="flex-1">
             <div class="form-control">
                 <form method="POST" action="">
@@ -60,7 +58,7 @@
         <div class="flex-1 flex justify-left">
             <a href="/dash/" class="btn btn-primary text-xl">FeedBack</a>
         </div>
-        <!-- Right side: Avatar dropdown -->
+
         <div class="flex-none">
             <div class="dropdown dropdown-end">
                 <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
@@ -82,11 +80,11 @@
         </div>
     </div>
 
-    <!--  -->
+
 <div class="video-container">
     <h1 class="text-3xl text-center my-5"></h1>
 
-    <!-- Displaying video -->
+
     <iframe src="{{ url_for('video_feed', exercise=exercise, user_id=user_id, rep_goal=rep_goal) }}" width="640" height="480"></iframe>
 </div>
 <div>
@@ -106,16 +104,11 @@
                 });
         }
 
-        // Update feedback every second
+
         setInterval(updateFeedback, 1000);
     </script>
 
-    <script type="text/javascript">
-        window.onload = function() {
-            var audio = document.getElementById('countdownAudio');
-            audio.play();
-        };
-    </script>
+
 
 
 </body>

@@ -2,55 +2,60 @@
 
 {% block content %}
 
+<div class="max-w-6xl mx-auto mt-10">
+    <div class="mockup-browser bg-base-300 border">
+        <input
+        type="text"
+        placeholder="Leaderboard"
+        class="input input-bordered w-full max-w-xs"
+        disabled />
 
-    <div class="max-w-6xl mx-auto mt-10">
-<div class="mockup-browser bg-base-300 border">
-  <input
-  type="text"
-  placeholder="Leaderboard"
-  class="input input-bordered w-full max-w-xs"
-  disabled />
 
-  <div class="bg-base-200 flex justify-center px-4 py-16">
+        <div class="bg-base-200 flex flex-col items-center px-4 py-16">
 
-     <div class="overflow-x-auto">
-  <table class="table table-zebra">
-    <!-- head -->
-    <thead>
-      <tr>
-          <th><div class="stat-title text-lg">Rank</div></th>
-        <th><div class="stat-title text-lg">Username</div></th>
-        <th><div class="stat-title text-lg">Score</div></th>
-        <th><div class="stat-title text-lg">Favourite exercise</div></th>
-       </tr>
-    </thead>
-    <tbody>
-      <!-- row 1 -->
-      <tr>
-        <th>1</th>
-        <td>test</td>
-        <td>10</td>
-        <td>test</td>
-      </tr>
-      <!-- row 2 -->
-      <tr>
-        <th>2</th>
-        <td>test</td>
-        <td>9</td>
-        <td>test</td>
-      </tr>
-      <!-- row 3 -->
-      <tr>
-        <th>3</th>
-        <td>test</td>
-        <td>8</td>
-        <td>test</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+            <form method="POST" action="{{ url_for('leaderboard') }}" class="mb-8">
+                <select name="view" id="view" class="select select-bordered" onchange="this.form.submit()">
+                    <option value="total_exercises" {% if view == 'total_exercises' %}selected{% endif %}>Total Exercises</option>
+                    <option value="total_reps" {% if view == 'total_reps' %}selected{% endif %}>Total Reps</option>
+                </select>
+            </form>
 
-      </div>
+
+            <div class="overflow-x-auto w-full">
+                <table class="table table-zebra w-full border-collapse border border-gray-300">
+                    <thead>
+                        <tr>
+                            <th class="border border-gray-300"><div class="stat-title text-lg">Rank</div></th>
+                            <th class="border border-gray-300"><div class="stat-title text-lg">Username</div></th>
+                            <th class="border border-gray-300"><div class="stat-title text-lg">
+                                {% if view == 'total_exercises' %}
+                                    Total Exercises
+                                {% else %}
+                                    Total Reps
+                                {% endif %}
+                            </div></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in leaderboard_data %}
+                        <tr>
+                            <th class="border border-gray-300">{{ loop.index }}</th>
+                            <td class="border border-gray-300">{{ user.username }}</td>
+                            <td class="border border-gray-300">
+                                {% if view == 'total_exercises' %}
+                                    {{ user.exercise_count }}
+                                {% else %}
+                                    {{ user.total_reps }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
 </div>
 
 {% endblock %}
