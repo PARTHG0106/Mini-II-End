@@ -1,8 +1,8 @@
-"""old is purged
+"""empty message
 
-Revision ID: 7c6bdb6c9bec
+Revision ID: 08f7b83fdfbc
 Revises: 
-Create Date: 2024-08-17 15:56:45.547522
+Create Date: 2024-08-20 21:42:46.403566
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '7c6bdb6c9bec'
+revision = '08f7b83fdfbc'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -21,9 +21,8 @@ def upgrade():
     op.create_table('exercises',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=150), nullable=False),
-    sa.Column('link', sa.String(length=200), nullable=False),
+    sa.Column('muscles_involved', sa.String(length=250), nullable=False),
     sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('link'),
     sa.UniqueConstraint('name')
     )
     op.create_table('user',
@@ -32,6 +31,7 @@ def upgrade():
     sa.Column('email', sa.String(length=150), nullable=False),
     sa.Column('password_hash', sa.String(length=128), nullable=False),
     sa.Column('created_at', sa.DateTime(), nullable=True),
+    sa.Column('rep_goal', sa.Integer(), nullable=True),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email'),
     sa.UniqueConstraint('username')

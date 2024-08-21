@@ -5,7 +5,10 @@
         <select name="exercise-selector">
             <option value="1" {% if exercise_id == 1 %}selected{% endif %}>Shoulder Press</option>
             <option value="2" {% if exercise_id == 2 %}selected{% endif %}>Bicep Curl</option>
-            <!-- Add more options as needed -->
+        <option value="3" {% if exercise_id == 3 %}selected{% endif %}>Barbell Squats</option>
+        <option value="4" {% if exercise_id == 4 %}selected{% endif %}>Deadlifts</option>
+
+
         </select>
         <button type="submit">Update</button>
     </form>

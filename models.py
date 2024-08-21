@@ -14,6 +14,7 @@ class User(db.Model):
     password_hash = db.Column(db.String(128), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.datetime.now())
     rep_goal = db.Column(db.Integer, nullable=True)
+    ex_goal = db.Column(db.Integer, nullable=False, default=5)
     def set_password(self, password):
         self.password_hash = bcrypt.generate_password_hash(password).decode('utf-8')
 
@@ -24,7 +25,8 @@ class User(db.Model):
 class Exercises(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(150), unique=True, nullable=False)
-    link = db.Column(db.String(200), unique=True, nullable=False)
+    muscles_involved = db.Column(db.String(250), nullable=False)
+    alternate = db.Column(db.String(250), nullable=True)
 
 
 class UserExercise(db.Model):

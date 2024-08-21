@@ -1,45 +1,38 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<style xmlns="">
-    #search-results {
-        display: none;
-        position: absolute;
-        z-index: 1000;
-        background-color: white;
-        border: 1px solid #ccc;
-        width: 100%;
-    }
-    #search-results a {
-        display: block;
-        padding: 8px;
-        text-decoration: none;
-        color: black;
-    }
-    #search-results a:hover {
-        background-color: #f0f0f0;
-    }
-</style>
-</head>
 <body>
 <div class="navbar bg-base-100">
 
-    <div class="flex-1">
-        <div class="form-control">
-            <form method="POST" action="{{ url_for('mainboard') }}">
-                {{ search_form.hidden_tag() }}
-                <div class="form-group flex relative">
-                    {{ search_form.search_exercise(class="input input-bordered w-full max-w-xs", id="search_exercise") }}
-                    <button type="submit" class="btn btn-primary ml-2">Search</button>
-                    <div id="search-results" class="rounded-box shadow-md"></div>
-                </div>
-            </form>
-        </div>
+<div class="flex-1">
+    <div class="form-control">
+        <form method="GET" action="{{ url_for('exercises') }}">
+            <button type="submit" class="btn btn-primary ml-2 w-full md:w-64">Learn</button>
+        </form>
     </div>
+</div>
+
 
     <div class="flex-1 flex justify-left">
-    <a href="/start/shoulder_press" class="btn btn-ghost text-xl">Start</a>
+    <label for="start-popup" class="btn btn-ghost text-xl cursor-pointer" >Start</label>
+</div>
+
+<input type="checkbox" id="start-popup" class="modal-toggle" />
+
+
+<dialog id="start-dialog" class="modal">
+    <div class="modal-box">
+        <h3 class="text-lg font-bold">Select Exercise</h3>
+        <p class="py-4">Please choose an exercise to start:</p>
+        <div class="modal-action flex justify-between">
+            <a href="/start/shoulder_press" class="btn">Shoulder Press</a>
+            <a href="/start/dumbbell_curls" class="btn">Dumbbell Curls</a>
+            <a href="/start/barbell_squats" class="btn">Barbell Squats</a>
+            <a href="/start/deadlift" class="btn">Deadlifts</a>
+            <label for="start-popup" class="btn">Cancel</label>
+        </div>
     </div>
+</dialog>
 
     <div class="flex-none">
         <div class="dropdown dropdown-end">
@@ -80,7 +73,7 @@
                     </div>
                     <div class="stat-title text-lg">Workouts Completed</div>
                     <div class="stat-value text-primary text-5xl">{{ workouts_completed }}</div>
-                    <div class="stat-desc text-sm">{{ efficiency }}% more than last week</div>
+                    <div class="stat-desc text-2xl">{{ efficiency }}% more than last week</div>
                 </div>
 
                 <div class="stat shadow bg-white p-4 rounded-lg">
@@ -104,9 +97,10 @@
                         </div>
                     </div>
                     <div class="stat-title text-lg">Workouts This Week</div>
-                    <div class="stat-value text-secondary text-3xl">{{ exercises_this_week }}</div>
-                    <div class="stat-desc text-sm">{{ workouts_remaining }} more workouts to go!</div>
-                    <progress class="progress progress-accent w-full" value="{{ progress }}" max="100"></progress>
+<div class="stat-value text-secondary text-3xl">{{ exercises_this_week }}</div>
+                    {% set total_workouts_p = ex_goal + exercises_this_week %}
+<div class="stat-desc text-sm"> {{ex_goal}} more workouts to go!</div>
+<progress class="progress progress-accent w-full" value= {{ exercises_this_week }} max={{total_workouts_p}}></progress>
                 </div>
             </div>
 </ul>
@@ -132,11 +126,11 @@
 
 
             <div class="stat bg-primary p-8 shadow-lg rounded-lg">
-                <div class="stat-figure text-secondary"></div>
-                <div class="stat-value text-secondary text-3xl">{{ streak }} Day!</div>
-                <div class="stat-desc text-lg">You are on a {{ streak }} day streak!</div>
-                <div class="stat-desc text-lg">0 workouts in past 30 days</div>
-            </div>
+    <div class="stat-figure text-secondary"></div>
+    <div class="stat-value text-secondary text-3xl">{{ streak }} Day!</div>
+    <div class="stat-desc text-lg">You are on a {{ streak }} day streak!</div>
+    <div class="stat-desc text-lg">{{ workout_days }} workouts in past 30 days</div>
+</div>
         </div>
     </div>
 </ul>
@@ -159,11 +153,11 @@
     <div class="container mx-auto mt-5 px-4">
         <div class="grid grid-cols-1 gap-4">
             <div class="stat bg-secondary p-8 shadow-lg rounded-lg">
-                <div class="stat-figure text-secondary"></div>
-                <div class="stat-value text-secondary text-3xl">0 Day!</div>
-                <div class="stat-desc text-3xl">Tired of Bench Press? </div>
-                <div class="stat-desc text-lg">Try <a href="">these instead!</a></div>
-            </div>
+    <div class="stat-figure text-secondary"></div>
+    <div class="stat-value text-secondary text-3xl">0 Day!</div>
+    <div class="stat-desc text-3xl">Tired of {{ selected_exercise_name }}?</div>
+    <div class="stat-desc text-lg">Try {{ alternate_message }} instead!</div>
+</div>
         </div>
     </div>
 </ul>
