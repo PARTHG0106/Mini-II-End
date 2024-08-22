@@ -6,10 +6,24 @@
 
 <div class="flex-1">
     <div class="form-control">
-        <form method="GET" action="{{ url_for('exercises') }}">
-            <button type="submit" class="btn btn-primary ml-2 w-full md:w-64">Learn</button>
-        </form>
+    <label for="learn-popup" class="btn btn-primary ml-2 w-full md:w-64">Learn</label>
+</div>
+
+<input type="checkbox" id="learn-popup" class="modal-toggle" />
+<dialog id="learn-dialog" class="modal">
+    <div class="modal-box">
+        <h3 class="text-lg font-bold">Select Exercise to Learn</h3>
+        <p class="py-4">Please choose an exercise to watch the video:</p>
+        <div class="modal-action flex justify-between">
+            <a href="{{ url_for('exercises', exercise='shoulder_press') }}" class="btn">Shoulder Press</a>
+            <a href="{{ url_for('exercises', exercise='dumbbell_curls') }}" class="btn">Dumbbell Curls</a>
+            <a href="{{ url_for('exercises', exercise='barbell_squats') }}" class="btn">Barbell Squats</a>
+            <a href="{{ url_for('exercises', exercise='deadlift') }}" class="btn">Deadlifts</a>
+            <a href="{{ url_for('exercises', exercise='lateral_raises') }}" class="btn">Lateral Raises</a> <!-- Added Lateral Raises -->
+            <label for="learn-popup" class="btn">Cancel</label>
+        </div>
     </div>
+</dialog>
 </div>
 
 
@@ -29,7 +43,8 @@
             <a href="/start/dumbbell_curls" class="btn">Dumbbell Curls</a>
             <a href="/start/barbell_squats" class="btn">Barbell Squats</a>
             <a href="/start/deadlift" class="btn">Deadlifts</a>
-            <label for="start-popup" class="btn">Cancel</label>
+            <a href="/start/lateral_raises" class="btn">Lateral Raises</a>
+            <label for="start-popup" class="btn">Back</label>
         </div>
     </div>
 </dialog>
@@ -54,8 +69,13 @@
                         <span class="badge">New</span>
                     </a>
                 </li>
-                <li><a>Settings</a></li>
-                <li><a>Logout</a></li>
+
+                <li>
+    <a href="{{ url_for('logout') }}" class="justify-between">
+        Logout
+        <span class="badge">Logout</span>
+    </a>
+</li>
             </ul>
         </div>
     </div>
@@ -153,11 +173,21 @@
     <div class="container mx-auto mt-5 px-4">
         <div class="grid grid-cols-1 gap-4">
             <div class="stat bg-secondary p-8 shadow-lg rounded-lg">
-    <div class="stat-figure text-secondary"></div>
-    <div class="stat-value text-secondary text-3xl">0 Day!</div>
-    <div class="stat-desc text-3xl">Tired of {{ selected_exercise_name }}?</div>
-    <div class="stat-desc text-lg">Try {{ alternate_message }} instead!</div>
-</div>
+                <div class="stat-figure text-secondary"></div>
+                <div class="stat-value text-secondary text-3xl">0 Day!</div>
+                <div class="stat-desc text-3xl">Tired of {{ selected_exercise_name }}?</div>
+                <div class="stat-desc text-lg">
+                    Try
+                    {% if alternate_message != "No alternate exercise available." %}
+                        <a href="{{ url_for('exercises', exercise=alternate_message|replace(' ', '_')|lower) }}" class="text-blue-500 underline">
+                            {{ alternate_message }}
+                        </a>
+                    {% else %}
+                        {{ alternate_message }}
+                    {% endif %}
+                    instead!
+                </div>
+            </div>
         </div>
     </div>
 </ul>

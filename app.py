@@ -7,6 +7,7 @@ from shoulder_press import gen_frames as gen_frames_shoulder_press
 from bicep_curls import gen_frames as gen_frames_bicep_curls
 from barbell_squats import gen_frames as gen_frames_barbell_squats
 from deadlift import gen_frames as gen_frames_deadlift
+from lateral_raises import gen_frames as gen_frames_lateral_raises
 import pandas as pd
 from dash import Dash, html, dcc, Input, Output
 import plotly.graph_objects as go
@@ -75,7 +76,8 @@ def render_content(tab):
                             {'label': 'Shoulder Press', 'value': 1},#edit here temporarily for exercise additions
                             {'label': 'Bicep Curl', 'value': 2},
                             {'label': 'Barbell Squats', 'value': 3},
-                            {'label': 'Deadlift', 'value': 4}
+                            {'label': 'Deadlift', 'value': 4},
+                            {'label': 'Lateral Raises', 'value': 5}
 
                         ],
                         value=1,
@@ -106,7 +108,8 @@ def render_content(tab):
                             {'label': 'Shoulder Press', 'value': 1},
                             {'label': 'Bicep Curl', 'value': 2},
                             {'label': 'Barbell Squats', 'value': 3},
-                            {'label': 'Deadlift', 'value': 4}
+                            {'label': 'Deadlift', 'value': 4},
+                            {'label': 'Lateral Raises', 'value': 5}
                         ],
                         value=1,
                         className='mx-auto',
@@ -311,6 +314,9 @@ def gen_frames(exercise, user_id, rep_goal):
     elif exercise == 'deadlift':
         print('dlift')
         return gen_frames_deadlift(user_id, rep_goal)
+    elif exercise == 'lateral_raises':
+        print('l_raises')
+        return gen_frames_lateral_raises(user_id, rep_goal)
     else:
         return None
 
@@ -465,11 +471,43 @@ def profile():
     user_details = User.query.filter_by(id=user_id).first()
 
     if user_details:
-        print('success fetching user details')
         username = user_details.username
+        ex_goal = user_details.ex_goal
+        rep_goal = user_details.rep_goal
+
+    if request.method == 'POST':
+        if 'change_password' in request.form:
+            new_password = request.form['new_password']
+            user_details.set_password(new_password)
+            db.session.commit()
+            flash('Password updated successfully!', 'success')
+
+        elif 'increase_ex_goal' in request.form:
+            user_details.ex_goal += 1
+            db.session.commit()
+
+        elif 'decrease_ex_goal' in request.form:
+            if user_details.ex_goal > 0:
+                user_details.ex_goal -= 1
+                db.session.commit()
+
+        elif 'increase_rep_goal' in request.form:
+            user_details.rep_goal += 1
+            db.session.commit()
+
+        elif 'decrease_rep_goal' in request.form:
+            if user_details.rep_goal > 0:
+                user_details.rep_goal -= 1
+                db.session.commit()
+
+        elif 'delete_account' in request.form:
+            db.session.delete(user_details)
+            db.session.commit()
+            flash('Account deleted successfully!', 'success')
+            return redirect(url_for('logout'))
 
     return render_template('profile.html', search_form=search_form,
-                           username=username)
+                           username=username, ex_goal=ex_goal, rep_goal=rep_goal)
 
 
 @app.route('/search_exercises', methods=['GET'])
@@ -486,10 +524,19 @@ def search_exercises():
 @app.route('/exercises', methods=['GET', 'POST'])
 @login_required
 def exercises():
-    print(session['user_id'])
-    search_form = SearchForm()
-    return render_template('exercises.html', search_form=search_form)
+    exercise = request.args.get('exercise', default=None)
 
+    video_links = {
+        'shoulder_press': 'https://www.youtube.com/embed/HzIiNhHhhtA',
+        'dumbbell_curls': 'https://www.youtube.com/embed/JnLFSFurrqQ',
+        'barbell_squats': 'https://www.youtube.com/embed/i7J5h7BJ07g',
+        'deadlift': 'https://www.youtube.com/embed/AweC3UaM14o',
+        'lateral_raises': 'https://www.youtube.com/embed/OuG1smZTsQQ'
+    }
+
+    video_link = video_links.get(exercise)
+
+    return render_template('exercises.html', video_link=video_link, exercise=exercise)
 
 @app.route('/leaderboard', methods=['GET', 'POST'])
 @login_required
@@ -548,6 +595,13 @@ def start_page(exercise):
 @app.route('/video_feed/<exercise>/<int:user_id>/<int:rep_goal>')
 def video_feed(exercise, user_id, rep_goal):
     return Response(gen_frames(exercise, user_id, rep_goal), mimetype='multipart/x-mixed-replace; boundary=frame')
+
+@app.route('/logout')
+@login_required
+def logout():
+    session.clear()  # Clear all session data
+    flash('You have been logged out.', 'success')
+    return redirect(url_for('login'))
 
 
 if __name__ == "__main__":
