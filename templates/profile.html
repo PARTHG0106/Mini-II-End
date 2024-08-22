@@ -3,38 +3,61 @@
 
 <div class="max-w-lg mx-auto mt-10">
     <div class="stats bg-primary text-primary-content">
-  <div class="stat">
-    <div class="stat-title">Username</div>
-    <div class="stat-value">{{ username }}</div>
-    <div class="stat-actions">
-      <button class="btn btn-sm btn-success">Change Username</button>
+        <div class="stat">
+            <div class="stat-title">Username</div>
+            <div class="stat-value">{{ username }}</div>
+
+        </div>
+<div class="stats bg-primary text-primary-content">
+        <div class="stat">
+            <div class="stat-title">Change Password</div>
+            <div class="stat-value">••••••••</div>
+            <div class="stat-actions">
+                <form method="POST" action="{{ url_for('profile') }}">
+                    <input type="password" name="new_password" placeholder="New Password" class="input input-bordered w-full max-w-xs" required>
+                    <div><button type="submit" name="change_password" class="btn btn-sm btn-success mt-2">Change Password</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div></div>
+
+    <div class="stats bg-primary text-primary-content mt-10">
+        <div class="stat">
+            <div class="stat-title">Weekly Exercise Goal</div>
+            <div class="stat-value">{{ ex_goal }}</div>
+            <div class="stat-actions">
+                <form method="POST" action="{{ url_for('profile') }}">
+                    <button type="submit" name="increase_ex_goal" class="btn btn-sm btn-success">+</button>
+                    <button type="submit" name="decrease_ex_goal" class="btn btn-sm btn-error">-</button>
+                </form>
+            </div>
+        </div>
     </div>
-  </div>
 
-  <div class="stat">
-    <div class="stat-title">Email ID</div>
-    <div class="stat-value">email_here</div>
-    <div class="stat-actions">
-      <button class="btn btn-sm">Change Password</button>
+    <div class="stats bg-primary text-primary-content mt-10">
+        <div class="stat">
+            <div class="stat-title">Repetition Goal</div>
+            <div class="stat-value">{{ rep_goal }}</div>
+            <div class="stat-actions">
+                <form method="POST" action="{{ url_for('profile') }}">
+                    <button type="submit" name="increase_rep_goal" class="btn btn-sm btn-success">+</button>
+                    <button type="submit" name="decrease_rep_goal" class="btn btn-sm btn-error">-</button>
+                </form>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
-
-<div class="max-w-lg mx-auto mt-10">
-    <div class="stats bg-primary text-primary-content">
-  <div class="stat">
-    <div class="stat-title">Weekly Exercise Goal</div>
-    <div class="stat-value">{{ weekly_goal }}</div>
-    <div class="stat-actions">
-      <button class="btn btn-sm btn-success">+</button>
-        <button class="btn btn-sm btn-success">-</button>
-
+<div>
+    <div class="stats bg-secondary text-secondary-content mt-10">
+        <div class="stat">
+            <div class="stat-title">Delete Account</div>
+            <div class="stat-actions">
+                <form method="POST" action="{{ url_for('profile') }}">
+                    <button type="submit" name="delete_account" class="btn btn-sm btn-error">Delete Account</button>
+                </form>
+            </div>
+        </div>
     </div>
-  </div>
-
 </div>
 </div>
-</div>
-
 {% endblock %}
-
