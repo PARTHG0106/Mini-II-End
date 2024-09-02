@@ -4,218 +4,207 @@
 <body>
 <div class="navbar bg-base-100">
 
-<div class="flex-1">
-    <div class="form-control">
-    <label for="learn-popup" class="btn btn-primary ml-2 w-full md:w-64">Learn</label>
-</div>
-
-<input type="checkbox" id="learn-popup" class="modal-toggle" />
-<dialog id="learn-dialog" class="modal">
-    <div class="modal-box">
-        <h3 class="text-lg font-bold">Select Exercise to Learn</h3>
-        <p class="py-4">Please choose an exercise to watch the video:</p>
-        <div class="modal-action flex justify-between">
-            <a href="{{ url_for('exercises', exercise='shoulder_press') }}" class="btn">Shoulder Press</a>
-            <a href="{{ url_for('exercises', exercise='dumbbell_curls') }}" class="btn">Dumbbell Curls</a>
-            <a href="{{ url_for('exercises', exercise='barbell_squats') }}" class="btn">Barbell Squats</a>
-            <a href="{{ url_for('exercises', exercise='deadlift') }}" class="btn">Deadlifts</a>
-            <a href="{{ url_for('exercises', exercise='lateral_raises') }}" class="btn">Lateral Raises</a> <!-- Added Lateral Raises -->
-            <label for="learn-popup" class="btn">Cancel</label>
+    <div class="flex-1">
+        <div class="form-control">
+            <label for="learn-popup" class="btn btn-primary ml-2 w-full md:w-64">Learn</label>
         </div>
-    </div>
-</dialog>
-</div>
 
+        <input type="checkbox" id="learn-popup" class="modal-toggle" />
+        <dialog id="learn-dialog" class="modal">
+            <div class="modal-box">
+                <h3 class="text-lg font-bold">Select Exercise to Learn</h3>
+                <p class="py-4">Please choose an exercise to watch the video:</p>
+                <div class="modal-action flex flex-wrap justify-between gap-2">
+                    <a href="{{ url_for('exercises', exercise='shoulder_press') }}" class="btn w-full sm:w-auto">Shoulder Press</a>
+                    <a href="{{ url_for('exercises', exercise='dumbbell_curls') }}" class="btn w-full sm:w-auto">Dumbbell Curls</a>
+                    <a href="{{ url_for('exercises', exercise='barbell_squats') }}" class="btn w-full sm:w-auto">Barbell Squats</a>
+                    <a href="{{ url_for('exercises', exercise='deadlift') }}" class="btn w-full sm:w-auto">Deadlifts</a>
+                    <a href="{{ url_for('exercises', exercise='lateral_raises') }}" class="btn w-full sm:w-auto">Lateral Raises</a>
+                    <label for="learn-popup" class="btn w-full sm:w-auto">Cancel</label>
+                </div>
+            </div>
+        </dialog>
+    </div>
 
     <div class="flex-1 flex justify-left">
-    <label for="start-popup" class="btn btn-ghost text-xl cursor-pointer" >Start</label>
-</div>
-
-<input type="checkbox" id="start-popup" class="modal-toggle" />
-
-
-<dialog id="start-dialog" class="modal">
-    <div class="modal-box">
-        <h3 class="text-lg font-bold">Select Exercise</h3>
-        <p class="py-4">Please choose an exercise to start:</p>
-        <div class="modal-action flex justify-between">
-            <a href="/start/shoulder_press" class="btn">Shoulder Press</a>
-            <a href="/start/dumbbell_curls" class="btn">Dumbbell Curls</a>
-            <a href="/start/barbell_squats" class="btn">Barbell Squats</a>
-            <a href="/start/deadlift" class="btn">Deadlifts</a>
-            <a href="/start/lateral_raises" class="btn">Lateral Raises</a>
-            <label for="start-popup" class="btn">Back</label>
-        </div>
+        <label for="start-popup" class="btn btn-ghost text-xl cursor-pointer">Start</label>
     </div>
-</dialog>
+
+    <input type="checkbox" id="start-popup" class="modal-toggle" />
+
+    <dialog id="start-dialog" class="modal">
+        <div class="modal-box">
+            <h3 class="text-lg font-bold">Select Exercise</h3>
+            <p class="py-4">Please choose an exercise to start:</p>
+            <div class="modal-action flex flex-wrap justify-between gap-2">
+                <a href="/start/shoulder_press" class="btn w-full sm:w-auto">Shoulder Press</a>
+                <a href="/start/dumbbell_curls" class="btn w-full sm:w-auto">Dumbbell Curls</a>
+                <a href="/start/barbell_squats" class="btn w-full sm:w-auto">Barbell Squats</a>
+                <a href="/start/deadlift" class="btn w-full sm:w-auto">Deadlifts</a>
+                <a href="/start/lateral_raises" class="btn w-full sm:w-auto">Lateral Raises</a>
+                <label for="start-popup" class="btn w-full sm:w-auto">Back</label>
+            </div>
+        </div>
+    </dialog>
 
     <div class="flex-none">
         <div class="dropdown dropdown-end">
             <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
                 <div class="w-10 rounded-full">
-                    <img
-                        alt="Avatar"
-                        src="https://cdn3.emoji.gg/emojis/4601_github.png"
-                    />
+                    <img alt="Avatar" src="https://cdn3.emoji.gg/emojis/4601_github.png" />
                 </div>
             </div>
-            <ul
-                tabindex="0"
-                class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
-            >
+            <ul tabindex="0" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
                 <li>
                     <a href='profile' class="justify-between">
                         Profile
                         <span class="badge">New</span>
                     </a>
                 </li>
-
                 <li>
-    <a href="{{ url_for('logout') }}" class="justify-between">
-        Logout
-        <span class="badge">Logout</span>
-    </a>
-</li>
+                    <a href="{{ url_for('logout') }}" class="justify-between">
+                        Logout
+                        <span class="badge">Logout</span>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
 </div>
 
+<div class="container mx-auto mt-2 px-4">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="stat shadow bg-white p-4 rounded-lg overflow-hidden">
+    <div class="stat-figure text-primary">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block h-8 w-8 stroke-current">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+        </svg>
+    </div>
+    <div class="stat-title text-lg">Workouts Completed</div>
+    <div class="stat-value text-primary text-5xl">{{ workouts_completed }}</div>
+        <ul>
+            <li>{{ efficiency }}% more than last week</li></ul>
+</div>
 
-<ul>
-    <div class="container mx-auto mt-2 px-4">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div class="stat shadow bg-white p-4 rounded-lg">
-                    <div class="stat-figure text-primary">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block h-8 w-8 stroke-current">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-                        </svg>
+        <div class="stat shadow bg-white p-4 rounded-lg">
+            <div class="stat-figure text-secondary">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block h-8 w-8 stroke-current">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                </svg>
+            </div>
+            <div class="stat-title text-lg">Overall Workout Efficiency</div>
+            <div class="stat-value text-secondary text-3xl">{{ efficiency }}%</div>
+        </div>
+
+        <div class="stat shadow bg-white p-4 rounded-lg">
+            <div class="stat-figure text-secondary">
+                <div class="avatar online">
+                    <div class="w-16 rounded-full">
+                        <img src="https://cdn3.emoji.gg/emojis/4601_github.png" />
                     </div>
-                    <div class="stat-title text-lg">Workouts Completed</div>
-                    <div class="stat-value text-primary text-5xl">{{ workouts_completed }}</div>
-                    <div class="stat-desc text-2xl">{{ efficiency }}% more than last week</div>
-                </div>
-
-                <div class="stat shadow bg-white p-4 rounded-lg">
-                    <div class="stat-figure text-secondary">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block h-8 w-8 stroke-current">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                        </svg>
-                    </div>
-                    <div class="stat-title text-lg">Overall Workout Efficiency</div>
-                    <div class="stat-value text-secondary text-3xl">{{ efficiency }}%</div>
-
-
-                </div>
-
-                <div class="stat shadow bg-white p-4 rounded-lg">
-                    <div class="stat-figure text-secondary">
-                        <div class="avatar online">
-                            <div class="w-16 rounded-full">
-                                <img src="https://cdn3.emoji.gg/emojis/4601_github.png" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="stat-title text-lg">Workouts This Week</div>
-<div class="stat-value text-secondary text-3xl">{{ exercises_this_week }}</div>
-                    {% set total_workouts_p = ex_goal + exercises_this_week %}
-<div class="stat-desc text-sm"> {{ex_goal}} more workouts to go!</div>
-<progress class="progress progress-accent w-full" value= {{ exercises_this_week }} max={{total_workouts_p}}></progress>
                 </div>
             </div>
-</ul>
+            <div class="stat-title text-lg">Workouts This Week</div>
+            <div class="stat-value text-secondary text-3xl">{{ exercises_this_week }}</div>
+            {% set total_workouts_p = ex_goal + exercises_this_week %}
+            <div class="stat-desc text-sm">{{ ex_goal }} more workouts to go!</div>
+            <progress class="progress progress-accent w-full" value="{{ exercises_this_week }}" max="{{ total_workouts_p }}"></progress>
+        </div>
+    </div>
+</div>
 
-<ul>
-    <div class="container mx-auto mt-5 px-4">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <a href="/dash/" style="text-decoration: none; color: inherit;">
-    <div class="stat bg-secondary p-8 shadow-lg rounded-lg" style="display: flex; align-items: center; justify-content: space-between;">
-        <div class="stat-desc text-lg" style="flex: 1; font-size:2em;">Track your progress</div>
-           <div class="stat-desc text-lg" style="flex: 1;"> <ul><li>
-                🏆    {{ total_exercises }} exercises completed!</li>
-            <li>🚀 {{ total_reps}} reps performed!
-            </li></ul></div>
+<div class="container mx-auto mt-5 px-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <a href="/dash/" class="text-decoration-none text-inherit">
+    <div class="stat bg-secondary p-8 shadow-lg rounded-lg flex flex-col items-center justify-between overflow-hidden">
+        <div class="stat-desc text-3xl text-center font-bold break-words mb-4">Track your progress</div>
+        <div class="stat-desc text-lg text-center break-words">
+            <ul>
+                <li>🏆 {{ total_exercises }} exercises completed!</li>
+                <li>🚀 {{ total_reps }} reps performed!</li>
+            </ul>
+        </div>
         <div class="radial-progress" style="--value:0; --size:6rem; --thickness: 2px;" role="progressbar">
-            <div style="text-align: center; font-size: 5em;">    📈 </div>
-           <div></div>
-</li>        </div>
+            <div class="text-center text-5xl">📈</div>
+        </div>
     </div>
 </a>
 
 
-
-
-            <div class="stat bg-primary p-8 shadow-lg rounded-lg">
+        <div class="stat bg-primary p-8 shadow-lg rounded-lg overflow-hidden text-center">
     <div class="stat-figure text-secondary"></div>
     <div class="stat-value text-secondary text-3xl">{{ streak }} Day!</div>
-    <div class="stat-desc text-lg">You are on a {{ streak }} day streak!</div>
-    <div class="stat-desc text-lg">{{ workout_days }} workouts in past 30 days</div>
+    <div class="stat-desc text-lg break-words">You are on a {{ streak }} day streak!</div>
+    <div class="stat-desc text-lg break-words">{{ workout_days }} workouts in past 30 days</div>
 </div>
-        </div>
-    </div>
-</ul>
 
-<ul>
-    <div class="container mx-auto mt-5 px-4">
-        <div class="grid grid-cols-1 gap-4">
-            <div class="stat bg-base-200 p-8 shadow-lg rounded-lg">
-                <div class="stat-figure text-secondary">
-                    <div class="flex justify-center mt-2">
-                        <a href="leaderboard" class="btn btn-ghost text-3xl">🏆 Leaderboard</a>
-                    </div>
+    </div>
+</div>
+
+<div class="container mx-auto mt-5 px-4">
+    <div class="grid grid-cols-1 gap-4">
+        <div class="stat bg-base-200 p-8 shadow-lg rounded-lg">
+            <div class="stat-figure text-secondary">
+                <div class="flex justify-center mt-2">
+                    <a href="leaderboard" class="btn btn-ghost text-3xl">🏆 Leaderboard</a>
                 </div>
             </div>
         </div>
     </div>
-</ul>
+</div>
 
-<ul>
-    <div class="container mx-auto mt-5 px-4">
-        <div class="grid grid-cols-1 gap-4">
-            <div class="stat bg-secondary p-8 shadow-lg rounded-lg">
-                <div class="stat-figure text-secondary"></div>
-                <div class="stat-value text-secondary text-3xl">0 Day!</div>
-                <div class="stat-desc text-3xl">Tired of {{ selected_exercise_name }}?</div>
-                <div class="stat-desc text-lg">
-                    Try
-                    {% if alternate_message != "No alternate exercise available." %}
-                        <a href="{{ url_for('exercises', exercise=alternate_message|replace(' ', '_')|lower) }}" class="text-blue-500 underline">
-                            {{ alternate_message }}
-                        </a>
-                    {% else %}
+<div class="container mx-auto mt-5 px-4">
+    <div class="grid grid-cols-1 gap-4">
+        <div class="stat bg-secondary p-8 shadow-lg rounded-lg">
+            <div class="stat-figure text-secondary"></div>
+            <div class="stat-value text-secondary text-3xl">0 Day!</div>
+            <div class="stat-desc text-3xl">Tired of {{ selected_exercise_name }}?</div>
+            <div class="stat-desc text-lg">
+                Try
+                {% if alternate_message != "No alternate exercise available." %}
+                    <a href="{{ url_for('exercises', exercise=alternate_message|replace(' ', '_')|lower) }}" class="text-blue-500 underline">
                         {{ alternate_message }}
-                    {% endif %}
-                    instead!
-                </div>
+                    </a>
+                {% else %}
+                    {{ alternate_message }}
+                {% endif %}
+                instead!
             </div>
         </div>
     </div>
-</ul>
+</div>
+<div class="container mx-auto mt-5 px-4">
+    <button class="btn btn-success" onclick="document.getElementById('shareTextModal').showModal()">Share your stats! </button>
+</div>
+<dialog id="shareTextModal" class="modal">
+    <div class="modal-box">
+        <h3 class="font-bold text-lg">Share Your Workout Stats</h3>
+        <pre class="italic py-4 bg-gray-100 p-4 rounded-lg border border-gray-300">
+            <ul>
+I have managed to perform {{ total_exercises }} exercises!
+I performed {{ total_reps }} reps in total!
+In the last 30 days, I have worked out {{ workout_days }} days!
+Join me and a thousand other people on Jim Bro,
+                Your AI workout buddy.</ul>
+        </pre>
+        <p class="text-sm text-gray-500 mt-2">Copy your stats above</p>
+        <div class="modal-action">
+            <button class="btn" onclick="document.getElementById('shareTextModal').close()">Close</button>
+        </div>
+    </div>
+</dialog>
 
-   {% if first_session %}
+{% if first_session %}
 <dialog id="first_time_popup" class="modal">
     <div class="modal-box">
         <h3 class="text-lg font-bold">Hello!</h3>
         <p class="py-4">This seems to be your first time! Let's set up your profile quickly!</p>
         <div class="modal-action">
-                <button class="btn"><a href="profile">Click here</a></button>
-
+            <button class="btn"><a href="profile">Click here</a></button>
         </div>
     </div>
 </dialog>
 
-       #first time loading, from stackoverflow
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        var modal = document.getElementById('first_time_popup');
-        modal.showModal();
-    });
 
-</script>
-
-    {% endif %}
-
-
-
-
+{% endif %}
 {% endblock %}

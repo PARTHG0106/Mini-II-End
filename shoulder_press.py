@@ -22,7 +22,7 @@ def calculate_angle(a, b, c): #part assistance from ai
 def gen_frames(user_id, rep_goal):
     tut_start_time = None
     total_tut_score = 0
-    print(f"gen_frames called with user_id={user_id}, rep_goal={rep_goal}")
+    #print(f"gen_frames called with user_id={user_id}, rep_goal={rep_goal}")
     global live_feedback
     camera = cv2.VideoCapture(0)
     if not camera.isOpened():
@@ -135,7 +135,7 @@ def gen_frames(user_id, rep_goal):
 
                                 rep_rom_score = 0
 
-                                if max_angle >= 120:
+                                if max_angle >= 122:
                                     rep_rom_score += 0.5
                                     print(f"Upper ROM: {rep_rom_score}")
                                 else:
@@ -164,7 +164,7 @@ def gen_frames(user_id, rep_goal):
                                 print("max_angle is None")
 
                     prev_angle = angle
-                    mp_drawing.draw_landmarks(image, results.pose_landmarks, mp_pose.POSE_CONNECTIONS)
+                    #mp_drawing.draw_landmarks(image, results.pose_landmarks, mp_pose.POSE_CONNECTIONS)
 
                     cv2.putText(image, f'Rep {repetition_count}', (30, 150),
                                 cv2.FONT_HERSHEY_DUPLEX, 0.75, (0, 0, 255), 2, cv2.LINE_AA)
@@ -185,8 +185,8 @@ def gen_frames(user_id, rep_goal):
                             image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
 
                             cv2.putText(image, 'Great Job! '
-                                               'Click the feedback button above', (30, 200),
-                                        cv2.FONT_HERSHEY_DUPLEX, 0.75, (0, 0, 255), 1, cv2.LINE_AA)
+                                               'Click the feedback button after page stops loading', (30, 200),
+                                        cv2.FONT_HERSHEY_DUPLEX, 0.50, (0, 0, 255), 1, cv2.LINE_AA)
 
                             ret, buffer = cv2.imencode('.jpg', image)
                             frame = buffer.tobytes()

@@ -16,9 +16,27 @@
 <div class="navbar bg-base-100">
     <div class="flex-1">
     <div class="form-control">
-        <form method="GET" action="{{ url_for('exercises') }}">
-            <button type="submit" class="btn btn-primary ml-2 w-full md:w-64">Learn</button>
-        </form>
+        <div class="flex-1">
+        <div class="form-control">
+            <label for="learn-popup" class="btn btn-primary ml-2 w-full md:w-64">Learn</label>
+        </div>
+
+        <input type="checkbox" id="learn-popup" class="modal-toggle" />
+        <dialog id="learn-dialog" class="modal">
+            <div class="modal-box">
+                <h3 class="text-lg font-bold">Select Exercise to Learn</h3>
+                <p class="py-4">Please choose an exercise to watch the video:</p>
+                <div class="modal-action flex flex-wrap justify-between gap-2">
+                    <a href="{{ url_for('exercises', exercise='shoulder_press') }}" class="btn w-full sm:w-auto">Shoulder Press</a>
+                    <a href="{{ url_for('exercises', exercise='dumbbell_curls') }}" class="btn w-full sm:w-auto">Dumbbell Curls</a>
+                    <a href="{{ url_for('exercises', exercise='barbell_squats') }}" class="btn w-full sm:w-auto">Barbell Squats</a>
+                    <a href="{{ url_for('exercises', exercise='deadlift') }}" class="btn w-full sm:w-auto">Deadlifts</a>
+                    <a href="{{ url_for('exercises', exercise='lateral_raises') }}" class="btn w-full sm:w-auto">Lateral Raises</a>
+                    <label for="learn-popup" class="btn w-full sm:w-auto">Cancel</label>
+                </div>
+            </div>
+        </dialog>
+    </div>
     </div>
 </div>
 
@@ -47,7 +65,7 @@
                         <span class="badge">New</span>
                     </a>
                 </li>
-                <li><a>Settings</a></li>
+
                 <li><a>Logout</a></li>
             </ul>
         </div>

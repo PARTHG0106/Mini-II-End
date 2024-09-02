@@ -24,6 +24,7 @@ bcrypt.init_app(app)
 migrate = Migrate(app, db)
 quartz = dbc.themes.SKETCHY
 
+# Decorator to ensure user is logged in before accessing certain routes
 def login_required(f):
     @wraps(f)
     def chck(*args, **kwargs):
@@ -33,9 +34,10 @@ def login_required(f):
         return f(*args, **kwargs)
     return chck
 
-
+# Dash application for interactive data visualisation
 dash_app = Dash(__name__, server=app, external_stylesheets=[quartz], url_base_pathname='/dashboard/')
 
+# Set up layout for the Dash application,
 dash_app.layout = dbc.Container([
     dbc.Row(
         dbc.Col(
@@ -60,7 +62,7 @@ dash_app.layout = dbc.Container([
     html.Div(id='tabs-content')
 ])
 
-
+# Callback to dynamically update content based on selected tabs
 @dash_app.callback(
     Output('tabs-content', 'children'),
     Input('tabs-example', 'value')
@@ -73,7 +75,7 @@ def render_content(tab):
                     dcc.Dropdown(
                         id='exercise-dropdown',
                         options=[
-                            {'label': 'Shoulder Press', 'value': 1},#edit here temporarily for exercise additions
+                            {'label': 'Shoulder Press', 'value': 1},#edit
                             {'label': 'Bicep Curl', 'value': 2},
                             {'label': 'Barbell Squats', 'value': 3},
                             {'label': 'Deadlift', 'value': 4},
@@ -295,12 +297,12 @@ def update_progress(tab, exercise_id):
     return overall_line_chart, specific_line_chart, muscle_bar_chart
 
 
-
+# Flask route to render the Dash dashboard
 @app.route("/dash/")
 def render_dashboard():
     return dash_app.index()
 
-
+# Function to generate frames for real-time video feedback
 def gen_frames(exercise, user_id, rep_goal):
     if exercise == 'shoulder_press':
         print('s_press')
@@ -321,7 +323,7 @@ def gen_frames(exercise, user_id, rep_goal):
         return None
 
 
-
+# Flask routes for user authentication
 @app.route('/')
 @app.route('/login', methods=['GET', 'POST'])
 @app.route('/login', methods=['GET', 'POST'])
@@ -365,7 +367,7 @@ def login():
 
 from datetime import datetime, timedelta
 
-
+# Flask route for homepage
 @app.route('/mainboard', methods=['GET', 'POST'])
 @login_required
 def mainboard():
@@ -462,6 +464,8 @@ def mainboard():
                            alternate_message=alternate_message, ex_goal=ex_goal)
 
 
+
+# Route for profile page
 @app.route('/profile', methods=['GET', 'POST'])
 @login_required
 def profile():
@@ -509,8 +513,8 @@ def profile():
     return render_template('profile.html', search_form=search_form,
                            username=username, ex_goal=ex_goal, rep_goal=rep_goal)
 
-
-@app.route('/search_exercises', methods=['GET'])
+#
+'''@app.route('/search_exercises', methods=['GET'])
 @login_required
 def search_exercises():
     query = request.args.get('query', '').strip()
@@ -518,9 +522,9 @@ def search_exercises():
         exercises = Exercises.query.filter(Exercises.name.ilike(f'%{query}%')).all()
         results = [{'name': exercise.name, 'link': exercise.link} for exercise in exercises]
         return jsonify(results)
-    return jsonify([])
+    return jsonify([])'''
 
-
+# Route to learn exercise
 @app.route('/exercises', methods=['GET', 'POST'])
 @login_required
 def exercises():
@@ -538,6 +542,7 @@ def exercises():
 
     return render_template('exercises.html', video_link=video_link, exercise=exercise)
 
+# Route for leaderboard
 @app.route('/leaderboard', methods=['GET', 'POST'])
 @login_required
 def leaderboard():
@@ -568,7 +573,8 @@ def workout():
     search_form = SearchForm()
     return render_template('exercises.html', search_form=search_form)
 
-
+# Routes to start exercise
+# Temp page to re-direct to exercise page
 @app.route('/start/<exercise>')
 @login_required
 def start(exercise):
@@ -578,6 +584,7 @@ def start(exercise):
 
     return render_template('instructions.html', search_form=search_form, exercise=exercise, user_id=user_id, rep_goal=rep_goal)
 
+# Actual Exercise Page
 @app.route('/start_page/<exercise>')
 @login_required
 def start_page(exercise):
@@ -591,15 +598,16 @@ def start_page(exercise):
 
     return render_template('start.html', search_form=search_form, exercise=exercise, user_id=user_id, rep_goal=rep_goal, video_feed_url=video_feed_url)
 
-
+# Video feed linked to start.html
 @app.route('/video_feed/<exercise>/<int:user_id>/<int:rep_goal>')
 def video_feed(exercise, user_id, rep_goal):
     return Response(gen_frames(exercise, user_id, rep_goal), mimetype='multipart/x-mixed-replace; boundary=frame')
 
+# Route to logout
 @app.route('/logout')
 @login_required
 def logout():
-    session.clear()  # Clear all session data
+    session.clear()
     flash('You have been logged out.', 'success')
     return redirect(url_for('login'))
 
