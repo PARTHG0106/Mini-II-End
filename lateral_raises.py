@@ -160,8 +160,8 @@ def gen_frames(user_id, rep_goal):
                             image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
 
                             cv2.putText(image, 'Great Job! '
-                                               'Click the feedback button above', (30, 200),
-                                        cv2.FONT_HERSHEY_DUPLEX, 0.75, (0, 0, 255), 1, cv2.LINE_AA)
+                                               'Click the feedback button after page stops loading', (30, 200),
+                                        cv2.FONT_HERSHEY_DUPLEX, 0.50, (0, 0, 255), 1, cv2.LINE_AA)
 
                             ret, buffer = cv2.imencode('.jpg', image)
                             frame = buffer.tobytes()
