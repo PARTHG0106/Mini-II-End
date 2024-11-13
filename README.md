@@ -21,8 +21,8 @@ Milestones:
 |Model Training: Train Media Pipe Model for joint detection and angle calculation.|X|
 |Integration: Integrate Media Pipe and OpenCV for real-time video processing.|X|
 |Feedback Mechanism: Implement logic for analyzing joint angles and providing real-time feedback.|X|
-|Feedback Mechanism: Implement logic for post-workout feedback and tracking.|(80%)|
-|Additional Features: Alternate exercise options and personalized recommendations.||
+|Feedback Mechanism: Implement logic for post-workout feedback and tracking.|X|
+|Additional Features: Alternate exercise options and personalized recommendations.|X|
 |Testing: Manual and automated testing of the training and feedback mechanisms.|X|
 
 Milestones:
@@ -35,11 +35,11 @@ Milestones:
 ## Sprint 3 - End-to-End Testing and Security Implementation
 | Task | Status |
 | ------------- | ------------- |
-| End-to-End Testing: Conduct thorough end-to-end testing of the entire application.||
-| Automated Testing: Implement Selenium for automated testing to ensure functionality, performance, and reliability.||
-| Load Testing: Load testing for 100 concurrent users.||
-| Security: Apply OWASP Top 10 security principles to protect user data and ensure application security.||
-| Bug Fixing: Identify and fix any issues discovered during testing.||
+| End-to-End Testing: Conduct thorough end-to-end testing of the entire application.|X|
+| Automated Testing: Implement Selenium for automated testing to ensure functionality, performance, and reliability.|X|
+| Load Testing: Load testing for 100 concurrent users.|X|
+| Security: Apply OWASP Top 10 security principles to protect user data and ensure application security.|X|
+| Bug Fixing: Identify and fix any issues discovered during testing.|X|
 
 
 Milestones:
@@ -52,9 +52,9 @@ Milestones:
 ## Sprint 4 - Deployment and Final Testing
 | Task | Status |
 | ------------- | ------------- |
-| Deployment: Deploy the application on a cloud-based host.||
-| User Testing: Conduct user testing in the deployed environment and gather feedback.||
-| Final Testing: Perform final round of testing to ensure all features are working as expected.||
+| Deployment: Deploy the application on a cloud-based host.|x|
+| User Testing: Conduct user testing in the deployed environment and gather feedback.|x|
+| Final Testing: Perform final round of testing to ensure all features are working as expected.|x|
 
 
 Milestones:
