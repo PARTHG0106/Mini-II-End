@@ -68,7 +68,7 @@ Milestones:
 >3. Project documentation finalized.
 
 # Images
-## UI
+## UI - Some pictures of UI (Thank you DaisyUI, sorry performance nerds)
 ![image](https://github.com/user-attachments/assets/fbfcc492-e293-4b17-966f-cc6fb3a62f85)
 ![image](https://github.com/user-attachments/assets/02878d43-fccb-4379-81ff-ce1567d3e8b2)
 ![image](https://github.com/user-attachments/assets/7afc89f5-002a-431e-9117-807b9bfb9cca)
